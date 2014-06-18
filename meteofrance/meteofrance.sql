@@ -1,0 +1,9 @@
+CREATE DATABASE weather;
+CREATE TABLE weather.meteofrance (
+    sid INT NOT NULL,
+    mdate DATE NOT NULL,
+    tmin SMALLINT DEFAULT NULL,
+    tmax SMALLINT DEFAULT NULL,
+    sun SMALLINT DEFAULT NULL,
+    rain SMALLINT DEFAULT NULL
+) ENGINE=MyISAM;
