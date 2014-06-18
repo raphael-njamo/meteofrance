@@ -14,8 +14,8 @@ class MeteofranceSpider(Spider):
     allowed_domains = ["meteofrance.com"]
 
     base_url = "http://www.meteofrance.com/climat/meteo-date-passee?lieuId=%08d&lieuType=STATION_CLIM_FR&date=%02d-%02d-%04d"
-    fdate = datetime(2014,1,1) 
-    tdate = datetime(2014,6,11)
+    fdate = datetime(2013,1,1) 
+    tdate = datetime(2013,12,31)
     ndone = 0
 
     def __init__(self):
