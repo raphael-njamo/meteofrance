@@ -17,6 +17,7 @@ class MeteofranceSpider(Spider):
     fdate = datetime(2013,1,1) 
     tdate = datetime(2013,12,31)
     ndone = 0
+    keys = {'maximale': 'tmax', 'minimale': 'tmin', 'Hauteur': 'rain', 'ensoleillement': 'sun'}
 
     def __init__(self):
         s=pkgutil.get_data('meteofrance','meteofrance_stations.csv')
@@ -43,14 +44,12 @@ class MeteofranceSpider(Spider):
         if len(data)==0:
             return None
         else:
-            val=[''.join(re.split('(\d+)',s)[1::2]) for s in data]
-            return MeteofranceItem({'sid':re.split('(\d+)',response.url)[1],
-                'mdate': datetime.strptime(response.url[-10:],"%d-%m-%Y"),
-                'tmin':val[0],
-                'tmax':val[1],
-                'sun':val[2],
-                'rain':val[3]
-                })
+            item = {v:''.join(re.split('(\d+)',s)[1::2]) 
+                for s in data for u,v in self.keys.iteritems() 
+                if re.search(u,s)!=None}
+            item.update({'sid':re.split('(\d+)',response.url)[1],
+                'mdate': datetime.strptime(response.url[-10:],"%d-%m-%Y")})
+            return MeteofranceItem(item)
 
     def log(self):
         i =self.ndone
