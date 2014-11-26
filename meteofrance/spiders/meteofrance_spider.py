@@ -14,12 +14,13 @@ class MeteofranceSpider(Spider):
     allowed_domains = ["meteofrance.com"]
 
     base_url = "http://www.meteofrance.com/climat/meteo-date-passee?lieuId=%08d&lieuType=STATION_CLIM_FR&date=%02d-%02d-%04d"
-    fdate = datetime(2013,1,1) 
-    tdate = datetime(2013,12,31)
     ndone = 0
+    tstart = datetime.now()
     keys = {'maximale': 'tmax', 'minimale': 'tmin', 'Hauteur': 'rain', 'ensoleillement': 'sun'}
 
-    def __init__(self):
+    def __init__(self,year):
+        self.fdate = datetime(int(year),1,1) 
+        self.tdate = datetime(int(year),12,31)
         s=pkgutil.get_data('meteofrance','meteofrance_stations.csv')
         csvr = csv.reader(s.split('\n'),delimiter=',')
         self.start_urls = [self.base_url%(int(r[0]),
@@ -52,13 +53,16 @@ class MeteofranceSpider(Spider):
             return MeteofranceItem(item)
 
     def log(self):
-        i =self.ndone
-        prop = 100*i/float(self.ntodo)
-        stdout.write("%s[%s] Done %i -- %s%f%%%s"%("\033[2K\r",
-            datetime.now().strftime("%d-%m-%Y %H:%M:%S"),
+        i = float(self.ndone)
+        prop = 100*i/self.ntodo
+        now = datetime.now()
+        avsp = i/(now-self.tstart).seconds
+        eta = now+timedelta(seconds=(self.ntodo-i)/avsp)
+        stdout.write("%s[%s] Done %s -- %s -- Average speed: %s -- ETA: %s"%(
+            "\033[2K\r",
+            now.strftime("%d-%m-%Y %H:%M:%S"),
             i,
-            "\033[31m",
-            prop,
-            "\033[39m"))
+            "\033[33m%f%%\033[39m"%prop,
+            "\033[35m%f\033[39m pages/s."%avsp,
+            "\033[36m%s\033[39m"%eta.strftime("%d-%m-%Y %H:%M:%S")))
         stdout.flush()
-

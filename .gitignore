@@ -2,4 +2,7 @@
 .DS_Store
 *.swp
 /build
-/project.egg-info
+/bin
+/include
+/lib
+.Python
