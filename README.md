@@ -29,5 +29,5 @@ where:
 * `date` is the date for which to scrape data, in `DD-MM-YYYY` format.
 ### Advanced
 Settings can be tweaked in the `settings.py` file. For example, you can increase the number of concurrent requests made to be able to scrape faster.
-If you have access to a proxy server, you can use that too. 
+If you have access to a proxy server, you can use that too. Just add it in the `middleware.py` file, and uncomment the corresponding setting in the settings file.
 Information can be found in the `Scrapy` documentation.

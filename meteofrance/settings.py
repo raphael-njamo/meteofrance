@@ -6,6 +6,7 @@ SPIDER_MODULES = ['meteofrance.spiders']
 NEWSPIDER_MODULE = 'meteofrance.spiders'
 
 DUPEFILTER_CLASS = 'scrapy.dupefilter.BaseDupeFilter'
+#DOWNLOADER_MIDDLEWARES={'meteofrance.middlewares.ProxyMiddleware': 100}
 
 FEED_FORMAT = 'csv'
 FEED_URI = 'file://%(outfile)s'
