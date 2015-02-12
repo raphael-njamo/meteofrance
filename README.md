@@ -27,6 +27,7 @@ where:
 * `place_type` is one of `VILLE_FRANCE` or `STATION_CLIM`
 * `place_id` is the code of the place to scrape data for. If `place_type=VILLE_FRANCE`, then this is the 5-digit INSEE code of the city. If `place_type=STATION_CLIM`, then this is the 8-digit identifier of the weather station (list of all weather stations can be found in the project folder)
 * `date` is the date for which to scrape data, in `DD-MM-YYYY` format.
+
 ### Advanced
 Settings can be tweaked in the `settings.py` file. For example, you can increase the number of concurrent requests made to be able to scrape faster.
 If you have access to a proxy server, you can use that too. Just add it in the `middleware.py` file, and uncomment the corresponding setting in the settings file.
