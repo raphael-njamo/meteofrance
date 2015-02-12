@@ -1,3 +1,4 @@
+from scrapy.contrib.downloadermiddleware.retry import RetryMiddleware
 class ProxyMiddleware(object):
     
     def process_request(self,request,spider):
